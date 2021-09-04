@@ -4,7 +4,7 @@
 let version = "V0.17a"
 //Specify file path and OBJ name
 let objPath = "/obj/"
-let objModelFile = "1000v_test.obj"
+let objModelFile = "cube_n_test.obj"
 //NJA custom fields
 let name = "Demo"
 let custom_comment = "Project Comment: Yahoo!"
