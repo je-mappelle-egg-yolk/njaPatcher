@@ -1,0 +1,90 @@
+*{
+  overflow: hidden;
+}
+
+.flex--cont{display:flex;}
+.flex--cont div{
+  top: 0px;
+  width: 100%;
+  height: 64px;
+  padding: 4px;
+  margin: 16px;
+  text-align: center;
+}
+
+.option1, .option2{
+  flex:1;
+  background-color: #DDD;
+}
+
+.option3{
+  flex:2;
+  background-color: #BBB;
+}
+
+.option1:hover, .option2:hover{
+  flex:1;
+  background-color: #0F0;
+}
+
+body, div, .obj--drop-zone, .header{
+  margin: 0px;
+  padding: 0px;
+}
+
+.header{
+  background-color: #BBB;
+  height: 96px;
+}
+
+h1{
+  display: inline-block;
+  padding: 4px;
+  margin: 0px;
+  width: 100%;
+  text-align: center;
+  height:32px;
+  font-size: 24px;
+}
+h2{
+  padding: 0px;
+  margin: 0px;
+}
+h3{
+  display: inline-block;
+  font-size: 12px;
+}
+
+p{
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 4px;
+  font-size: 20px;
+}
+
+pre{
+  color: white;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 4px;
+}
+
+.obj--drop-zone{
+  background-color: #444;
+  position: fixed;
+  top: 96px; right: 0; bottom: 0; left: 0;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+.obj--over{
+  position: fixed;
+  top: 96px; right: 0; bottom: 0; left: 0;
+  border: 4px solid #0F0;
+}
+
+.obj--input{
+  display: none;
+  position: absolute;
+}
