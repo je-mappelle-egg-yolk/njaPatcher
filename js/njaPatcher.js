@@ -58,42 +58,7 @@ let objTextureOrder = []
 let njaOptimizedTriList = []
 let njaOptimizedTexList = []
 let stripDirectionAsText = []
-//Model settings
-function reset(){
-  njat = ""
-  let normals = true
-  let texture = true
-  let njaMode;
-  let quadFaces;
-  let flatShading;
 
-  //OBJ params
-  let objDimension = 0
-  let objVertCount = 0
-  let objFormat = ""
-  let objX = []
-  let objY = []
-  let objZ = []
-  let objXN = []
-  let objYN = []
-  let objZN = []
-  let objXT = []
-  let objYT = []
-  let objTriIndices = []
-  let objTexIndices = []
-  let objNormIndices = []
-
-//Order lists from OBJ
-  let objVertexOrder = []
-  let objNormalsOrder = []
-  let objTextureOrder = []
-
-  //NJA params
-  let njaOptimizedTriList = []
-  let njaOptimizedTexList = []
-  let stripDirectionAsText = []
-  main()
-}
 ////////////////////////////////////////////////////////////////////////////////
 //Ex html
 document.getElementById("version").innerHTML = "njaPatcher demo build: " + version
@@ -619,7 +584,6 @@ function main(){
     }else if(flatShading){
       document.getElementById("output").innerHTML = "Error: Model most likely flat shaded, please 'smooth shade' your OBJ before exporting!"
     }
-
     //End of program
   }
 

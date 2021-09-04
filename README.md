@@ -4,7 +4,7 @@ This tool is a reverse engineering of NJA (Ninja Ascii) file format used in many
 # Demo build usage, njaPatcher.js
 The current repo is still in early development and is not refactored in any way, the build is only tested in Chrome. The process of transferring OBJ to NJA is entirely functional. In it's current state, the program will auto detect which type of OBJ is being loaded, and determine whether it should have a texture list, or normals list, producing different versions of NJA.
 
-To use the demo build, first a code editor is required, since it's not formatted into a lib yet. The user of the tool will have to manually edit booleans at the top of the script, which are as follows:
+To use the demo build, first a code editor is required (live server, choose html folder), since it's not formatted into a lib yet. The user of the tool will have to manually edit booleans at the top of the script, which are as follows:
 
 ### objPath, objModelFile
 
