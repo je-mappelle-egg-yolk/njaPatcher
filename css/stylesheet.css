@@ -65,8 +65,9 @@ p{
 pre{
   color: white;
   padding: 0px;
-  margin: 0px;
+  margin: 20px;
   margin-bottom: 4px;
+  white-space: pre-wrap;
 }
 
 .obj--drop-zone{

@@ -1,0 +1,5 @@
+var nja = new njaPatcher("/obj/")
+nja.details("Demo", "njaPatcher 2 njFlasher")
+nja.objScale(2.5)
+nja.loadOBJ("weapon_model_size_reference.obj")
+nja.flashNJ()

@@ -1,88 +1,361 @@
-//Editable options section : USER INTERFACE
+/////Define prototype
+function njaPatcher(objPath){
+  //Editable options section : USER INTERFACE
+  //Tool settings
+  let version = "V0.20a"
+  //let objPath = "/obj/"
+  //let objModelFile = "cube_t_blender_dir_ref.obj"
+  let name = "name_in_nja"
+  let custom_comment = "custom_comment"
 
-//Tool settings
-let version = "V0.17a"
-//Specify file path and OBJ name
-let objPath = "/obj/"
-let objModelFile = "cube_n_test.obj"
-//NJA custom fields
-let name = "Demo"
-let custom_comment = "Project Comment: Yahoo!"
-let texture_comment = "This_transfers_into_the_final_NJ/PRS_file"
-//Can unload normals if you want, will make the model have undesired effects.
-let unloadNormals = false;
-//Option to display verts as original OBJ values, if false don't try to convert the NJA, it won't convert
-let showVertsAsFloatingPoint = true;
-//If set to true, the script will find a better path for making triangle strips,
-//it is exponentially slower to optimize (by vert count, poorly optimized code), but
-//can generate models with less bandwidth. Not recommended for models with high
-//vert count + texture. Can test this with cube_n_test.obj, since it takes a second
-//to convert. Lastly, there is a console log for this function, which displays the optimal
-//sort order of each strip.
-let optimizeTriangleStripDetermination = false;
+  let texture_comment, forcedNormals, forcedTextures
+  let njatColours = [[255, 255, 255, 255], [255, 255, 255, 255], [8, 255, 255, 255]]
+  let bandwidth, bandwidthOffset, vlistChunk, vlistOffnbIdx
 
-//Don't bother messing with anything below here, unless you're curious how the
-//script works. The normals and texture flags are automatically picked up.
+  let objHasTextures = false
 
-////////////////////////////////////////////////////////////////////////////////
+  let showVertsAsFloatingPoint = true
+  let optimizeTriangleStripDetermination = false
 
-//Model settings
-let normals = true
-let texture = true
-let njaMode;
-let quadFaces;
-let flatShading;
+  let unloadNormals = false
+  let unloadTexture = false
 
-//OBJ params
-let objDimension = 0
-let objVertCount = 0
-let objFormat = ""
-let objX = []
-let objY = []
-let objZ = []
-let objXN = []
-let objYN = []
-let objZN = []
-let objXT = []
-let objYT = []
-let objTriIndices = []
-let objTexIndices = []
-let objNormIndices = []
+  let forceNormals = false
+  let forceTextureCoords = false
 
-//Order lists from OBJ
-let objVertexOrder = []
-let objNormalsOrder = []
-let objTextureOrder = []
+  let objDefaultFaceScale = 5
 
-//NJA params
-let njaOptimizedTriList = []
-let njaOptimizedTexList = []
-let stripDirectionAsText = []
+  let flashNJ = false
+  ////////////////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////////////
-//Ex html
-document.getElementById("version").innerHTML = "njaPatcher demo build: " + version
-if(optimizeTriangleStripDetermination) document.getElementById("output").innerHTML = "Warning: Program will hang if optimizing triangle strips, processing can be seen in the console (f12), if it's open before optimization begins."
-//Ex func
-function removeDupe(array){
-  return array.filter((value, index) => array.indexOf(value) === index);
-}
-////////////////////////////////////////////////////////////////////////////////
+  //Model settings
+  let normals = true
+  let texture = true
+  let njaMode;
+  let quadFaces;
+  let flatShading;
 
-main();
-function main(){
-  loadOBJ();
-  function loadOBJ(){
-    fetch(objPath + objModelFile)
-    .then(response => response.text())
-    .then(text => getOBJdata(text))
+  //OBJ params
+  let objDimension = 0
+  let objVertCount = 0
+  let objFormat = ""
+  let objX = []
+  let objY = []
+  let objZ = []
+  let objXN = []
+  let objYN = []
+  let objZN = []
+  let objXT = []
+  let objYT = []
+  let objTriIndices = []
+  let objTexIndices = []
+  let objNormIndices = []
+
+  //Order lists from OBJ
+  let objVertexOrder = []
+  let objNormalsOrder = []
+  let objTextureOrder = []
+
+  //NJA params
+  let njaOptimizedTriList = []
+  let njaOptimizedTexList = []
+  let stripDirectionAsText = []
+
+  //Proto bools
+  var finalNJAData = []
+  ////////////////////////////////////////////////////////////////////////////////
+  //Ex html
+  document.getElementById("version").innerHTML = "njaPatcher demo build: " + version
+  if(optimizeTriangleStripDetermination) document.getElementById("output").innerHTML = "Warning: Program will hang if optimizing triangle strips, processing can be seen in the console (f12), if it's open before optimization begins."
+  //Ex func
+  function removeDupe(array){
+    return array.filter((value, index) => array.indexOf(value) === index);
   }
+  ////////////////////////////////////////////////////////////////////////////////
+  /////OBJ
+  function loadOBJ(path, obj){
+    fetch(path + obj)
+    .then(response => response.text())
+    .then((text) => {
+     getOBJdata(text)
+    })
+  }
+
+  function getOBJdata(obj){
+    normals = (obj.search('vn ') == -1 ? false : true)
+    texture = (obj.search('vt ') == -1 ? false : true)
+    if(texture) objHasTextures = true;
+    if(unloadTexture) texture = false;
+    let fixOBJ = (obj.search('usemtl') == -1 ? false : true)
+    if(fixOBJ) obj.replace('usemtl None', '');
+    if(unloadNormals) normals = false;
+    njaMode = (normals ? "CnkV_VN" : "CnkV")
+    let vertVectorsXYZ, normalVectorsXYZ, textureCoordsVectorsXY, triangleStrips
+    if(texture){
+      vertVectorsXYZ = populateObjectVectors(objX, objY, objZ, "v ", "vt ", "vertex", obj)
+      populateObjectVectors(objXN, objYN, objZN, "vn ", "s ", "normals" ,obj)
+      populateObjectVectors(objXT, objYT, [], "vt ", "vn ", "texture", obj)
+    }else{
+      if(normals){
+        vertVectorsXYZ = populateObjectVectors(objX, objY, objZ, "v ", "vn ", "vertex", obj)
+        populateObjectVectors(objXN, objYN, objZN, "vn ", "s ", "normals" ,obj)
+      }else{
+        if(objHasTextures){
+          vertVectorsXYZ = populateObjectVectors(objX, objY, objZ, "v ", "vt ", "vertex", obj)
+        }else{
+          vertVectorsXYZ = populateObjectVectors(objX, objY, objZ, "v ", "vn ", "vertex", obj)
+        }
+      }
+    }
+
+    triangleStrips = getOBJTriangleData(obj)
+    objVertCount = objX.length
+    normalVectorsXYZ = reorderNormals()
+    textureCoordsVectorsXY = reorderTexture()
+
+    vlistChunk = (normals ? (objVertCount*6)+1 : (objVertCount*3)+1)
+    vlistOffnbIdx = objVertCount
+    let vlistInfo = []
+    vlistInfo.push(vlistChunk)
+    vlistInfo.push(vlistOffnbIdx)
+
+    bandwidth = 1 //Slot for strips total count
+    for(tri in triangleStrips){
+      bandwidth+=triangleStrips[tri].length
+    }
+    bandwidth += triangleStrips.length
+    bandwidth += 1 //for padding
+    if(texture){
+      for(texCoordXY in textureCoordsVectorsXY[0]){
+        bandwidth+=2
+      }
+    }
+
+    bandwidthOffset = 80 // Might be vertcount * 10
+    for(i = 0; i < bandwidth-1; i++){
+      bandwidthOffset += 2
+    }
+    if(flashNJ){
+      if(unloadNormals || unloadTexture || objXN[0] == undefined){
+        document.getElementById("output").innerHTML += "Error: unloadNormals() and unloadTextures() only supported for NJA output."
+      }
+      njPatch([bandwidth, bandwidthOffset], texture_comment, njatColours, [vertVectorsXYZ, normalVectorsXYZ, textureCoordsVectorsXY, triangleStrips], vlistInfo)
+    }else{
+      getNJAT()
+    }
+  }
+
+  function reorderTexture(){
+    let tempXT=[]
+    let tempYT=[]
+    let njaStripOrder=[]
+    let njaTexOrder=[]
+    for(strip in njaOptimizedTriList){
+      for(vert in njaOptimizedTriList[strip]){
+          njaStripOrder.push(njaOptimizedTriList[strip][vert])
+        if(texture){
+          njaTexOrder.push(njaOptimizedTexList[strip][vert])
+        }
+      }
+    }
+    let checkedVertMap = []
+    for(vert in objVertexOrder){
+      checkedVertMap.push(false)
+    }
+    let loadVal = false
+    let bitX, bitY;
+    for(vert in njaTexOrder){
+      tempXT.push(objXT[njaTexOrder[vert]])
+      tempYT.push(objYT[njaTexOrder[vert]])
+    }
+    let reverseXT = []
+    let reverseYT = []
+    for(texcoord in tempXT){
+
+    }
+    objXT = tempXT
+    objYT = tempYT
+    if(forcedTextures){
+      for(texCoord in objXT){
+        objXT[texCoord] = parseInt(forcedTextures[0])
+        objYT[texCoord] = parseInt(forcedTextures[1])
+      }
+    }
+    return [objXT, objYT]
+  }
+  function reorderNormals(){
+    let tempXN=[]
+    let tempYN=[]
+    let tempZN=[]
+    let checkedVertMap = []
+    for(vert in objVertexOrder){
+      checkedVertMap.push(false)
+    }
+    for(i in objXN){
+      tempXN.push(0)
+      tempYN.push(0)
+      tempZN.push(0)
+    }
+    for(vert in objVertexOrder){
+      if(checkedVertMap[objVertexOrder[vert]] != true){
+        if(!forcedNormals){
+          tempXN[objVertexOrder[vert]] = objXN[objNormalsOrder[vert]]
+          tempYN[objVertexOrder[vert]] = objYN[objNormalsOrder[vert]]
+          tempZN[objVertexOrder[vert]] = objZN[objNormalsOrder[vert]]
+        }else{
+          tempXN[objVertexOrder[vert]] = valueToFloatingPointHex(forcedNormals[0])
+          tempYN[objVertexOrder[vert]] = valueToFloatingPointHex(forcedNormals[1])
+          tempZN[objVertexOrder[vert]] = valueToFloatingPointHex(forcedNormals[2])
+        }
+          checkedVertMap[objVertexOrder[vert]] = true
+      }
+    }
+    objXN = tempXN
+    objYN = tempYN
+    objZN = tempZN
+    return [objXN, objYN, objZN]
+  }
+  function searchString(string, value){
+    let stopSearchAt = string.search(value)
+    let stopSeachAtWithOffset = string.search(value) + value.length
+    return stopSeachAtWithOffset
+  }
+  function isolateOBJValues(obj, from, to){
+    let cutText = [from, to]
+    let s = searchString(obj, cutText[0]) // start
+    let e = searchString(obj, cutText[1]) // end
+    return obj.substring(s-cutText[0].length, e-cutText[1].length)
+  }
+
+  function populateObjectVectors(x, y, z, from, to, type, obj){
+    let objIsolate = isolateOBJValues(obj, from, to)
+    var tempString = ""
+    for(i = 0; i < objIsolate.length; i++){
+      if(objIsolate.charAt(i) != 'v' && objIsolate.charAt(i) != ' ' && objIsolate.charAt(i) != 'n'){
+        tempString += objIsolate.charAt(i)
+      }else{
+        tempString = ""
+      }
+      if(type == "normals"){
+        cyclePushXYZConfig(x, y, z, tempString, showVertsAsFloatingPoint, type, 7)
+      }
+      if(type == "vertex"){
+        cyclePushXYZConfig(x, y, z, tempString, showVertsAsFloatingPoint, type, 9)
+      }
+      if(type == "texture"){
+        if(tempString.length == 8){
+          cyclePushXY(x, y, tempString)
+        }
+      }
+    }
+    if(type == "texture"){
+      return [x, y]
+    }else{
+      return [x, y, z]
+    }
+  }
+  function cyclePushXYZConfig(x, y, z, string, convertToFloatingPoint, type, maxLen){
+    if(string.charAt(0) == '-' && string.length == maxLen){
+      cyclePushXYZ(x, y, z, string, convertToFloatingPoint, type)
+    }else if(string.charAt(0) != '-' && string.length == maxLen-1){
+      cyclePushXYZ(x, y, z, string, convertToFloatingPoint, type)
+    }
+  }
+  function cyclePushXYZ(x, y, z, string, convertToFloatingPoint, type){
+    if(type == "normals"){ // Not sure about scaling normals yet, will test it later
+      if(convertToFloatingPoint){
+        let objRepositionVertex = parseInt(string).toPrecision(7)
+        let tempString = []
+        for(i in string.length){
+          tempString.push() = objRepositionVertex[i]
+        }
+        string*=1
+        string=string.toString()
+        string = valueToFloatingPointHex(string)
+      }else{
+        let objRepositionVertex = parseInt(string).toPrecision(7)
+        let tempString = []
+        for(i in string.length){
+          tempString.push() = objRepositionVertex[i]
+        }
+        string*=1
+        string=string.toString()
+        string = (string*1).toPrecision(7)
+      }
+    }
+    if(type == "vertex"){
+      if(convertToFloatingPoint){
+        let objRepositionVertex = parseInt(string).toPrecision(7)
+        let tempString = []
+        for(i in string.length){
+          tempString.push() = objRepositionVertex[i]
+        }
+        string*=objDefaultFaceScale
+        string=string.toString()
+        string = valueToFloatingPointHex(string)
+      }else{
+        let objRepositionVertex = parseInt(string).toPrecision(7)
+        let tempString = []
+        for(i in string.length){
+          tempString.push() = objRepositionVertex[i]
+        }
+        string*=objDefaultFaceScale
+        string=string.toString()
+        string = (string*1).toPrecision(7)
+      }
+    }
+    switch(objDimension){
+      case 0:
+        x.push(string)
+        objDimension += 1
+      break;
+      case 1:
+        y.push(string)
+        objDimension += 1
+      break;
+      case 2:
+        z.push(string)
+        objDimension = 0
+      break;
+    }
+  }
+  function cyclePushXY(x, y, string){
+    switch(objDimension){
+      case 0:
+        string = parseInt(string*256)
+        x.push(string)
+        objDimension += 1
+      break;
+      case 1:
+        string = parseInt((string*-1*256)+256)
+        y.push(string)
+        objDimension = 0
+      break;
+    }
+  }
+  function valueToFloatingPointHex(string){
+    //function retrieved from:
+    //https://stackoverflow.com/questions/47164675/convert-float-to-32bit-hex-string-in-javascript/47187116#47187116
+    const getHex = i => ('00' + i.toString(16)).slice(-2)
+    var view = new DataView(new ArrayBuffer(4)), result
+    view.setFloat32(0, string)
+    result = Array
+        .apply(null, { length: 4 })
+        .map((_, i) => getHex(view.getUint8(i)))
+        .join('')
+        //console.log(result)
+    return "0x" + result;
+  }
+
   function getNJAT(){
     let template = (texture ? "/templates/njaTemplateTexture.txt" : "/templates/njaTemplate.txt" )
     fetch(template)
     .then(response => response.text())
     .then(text => patchNJAT(text))
   }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  /////TRIANGLE
   let lookAheadAsStrip = []
   let lookAheadAsStripTexture = []
   let checkedTriangleMap = []
@@ -130,8 +403,29 @@ function main(){
       }
     }
     //Normal index
-    addToArray = true
+    addToArray = false
     let slashCounter = 0;
+    for(i = 0; i < objTriangleIsolate.length; i++){
+      if(objTriangleIsolate.charAt(i) == 'f') slashCounter = 0;
+      if(objTriangleIsolate.charAt(i) == '/'){
+        slashCounter+=1
+        if(slashCounter == 2){
+          addToArray = true
+          slashCounter = 0
+        }
+      }
+      if(addToArray){
+        if(objTriangleIsolate.charAt(i) != ' ' && objTriangleIsolate.charAt(i) != 'f' && objTriangleIsolate.charAt(i) != '/'){
+          tempNormalsString += objTriangleIsolate.charAt(i)
+        }else if(tempNormalsString != ""){
+            tempNormalsString = parseInt(tempNormalsString)-1
+            objNormalsOrder.push(tempNormalsString)
+            tempNormalsString = "";
+            addToArray = false
+        }
+      }
+    }
+    /*
     for(i = 0; i < objTriangleIsolate.length; i++){
       if(addToArray){
         if(objTriangleIsolate.charAt(i) == 'f' || objTriangleIsolate.charAt(i) == ' '){
@@ -141,7 +435,7 @@ function main(){
             tempNormalsString = "";
           }
           addToArray = false
-        }else{
+        }else if(objTriangleIsolate.charAt(i) != "/"){
           tempNormalsString += objTriangleIsolate.charAt(i)
         }
       }
@@ -161,10 +455,12 @@ function main(){
         }
       }
     }
+    */
     //Hacky, but need to add last index.
     tempNormalsString = parseInt(tempNormalsString)-1
     objNormalsOrder.push(tempNormalsString)
     tempNormalsString = "";
+
     //Textures index
     addToArray = false
     for(i = 0; i < objTriangleIsolate.length; i++){
@@ -219,8 +515,8 @@ function main(){
       tempOptimizedTriangleStrips = strips
       tempOptimizedTextureStrips = textures
       stripOptimizationResults = [0, 0, 0, 0, 0, 0]
-      document.getElementById("output").innerHTML += `\nSort order: ` + indexSortOrder[sortResult]
-      console.log(`Sort order: ` + indexSortOrder[sortResult])
+      //document.getElementById("output").innerHTML += `\nSort order: ` + indexSortOrder[sortResult]
+      //console.log(`Sort order: ` + indexSortOrder[sortResult])
       buildingFromOptimized = true
       buildTriangleStrip(true, sortResult)
     }
@@ -368,203 +664,17 @@ function main(){
     }else{
       njaOptimizedTriList = tempOptimizedTriangleStrips
     }
+    return njaOptimizedTriList
   }
-  function getOBJdata(obj){
-    normals = (obj.search('vn ') == -1 ? false : true)
-    texture = (obj.search('vt') == -1 ? false : true)
-    let fixOBJ = (obj.search('usemtl') == -1 ? false : true)
-    if(fixOBJ) obj.replace('usemtl None', '');
-    if(unloadNormals) normals = false;
-    njaMode = (normals ? "CnkV_VN" : "CnkV")
-    if(texture){
-      populateObjectVectors(objX, objY, objZ, "v ", "vt ", "vertex", obj)
-      populateObjectVectors(objXN, objYN, objZN, "vn ", "s ", "normals" ,obj)
-      populateObjectVectors(objXT, objYT, [], "vt ", "vn ", "texture", obj)
-    }else{
-      if(normals){
-        populateObjectVectors(objX, objY, objZ, "v ", "vn ", "vertex", obj)
-        populateObjectVectors(objXN, objYN, objZN, "vn ", "s ", "normals" ,obj)
-      }else{
-        populateObjectVectors(objX, objY, objZ, "v ", "vn ", "vertex", obj)
-      }
-    }
-    getOBJTriangleData(obj)
-    objVertCount = objX.length
-    reorderNormals()
-    reorderTexture()
-    getNJAT()
-  }
-  function reorderTexture(){
-    let tempXT=[]
-    let tempYT=[]
-    let njaStripOrder=[]
-    let njaTexOrder=[]
-    for(strip in njaOptimizedTriList){
-      for(vert in njaOptimizedTriList[strip]){
-        njaStripOrder.push(njaOptimizedTriList[strip][vert])
-        if(texture){
-          njaTexOrder.push(njaOptimizedTexList[strip][vert])
-        }
-      }
-    }
-    let checkedVertMap = []
-    for(vert in objVertexOrder){
-      checkedVertMap.push(false)
-    }
-    let loadVal = false
-    let bitX, bitY;
-    for(vert in njaTexOrder){
-      tempXT.push(objXT[njaTexOrder[vert]])
-      tempYT.push(objYT[njaTexOrder[vert]])
-    }
-    let reverseXT = []
-    let reverseYT = []
-    for(texcoord in tempXT){
-
-    }
-    objXT = tempXT
-    objYT = tempYT
-  }
-  function reorderNormals(){
-    let tempXN=[]
-    let tempYN=[]
-    let tempZN=[]
-    let checkedVertMap = []
-    for(vert in objVertexOrder){
-      checkedVertMap.push(false)
-    }
-    for(i in objXN){
-      tempXN.push(0)
-      tempYN.push(0)
-      tempZN.push(0)
-    }
-    for(vert in objVertexOrder){
-      if(checkedVertMap[objVertexOrder[vert]] != true){
-          tempXN[objVertexOrder[vert]] = objXN[objNormalsOrder[vert]]
-          tempYN[objVertexOrder[vert]] = objYN[objNormalsOrder[vert]]
-          tempZN[objVertexOrder[vert]] = objZN[objNormalsOrder[vert]]
-          checkedVertMap[objVertexOrder[vert]] = true
-      }
-    }
-    objXN = tempXN
-    objYN = tempYN
-    objZN = tempZN
-  }
-  function searchString(string, value){
-    let stopSearchAt = string.search(value)
-    let stopSeachAtWithOffset = string.search(value) + value.length
-    return stopSeachAtWithOffset
-  }
-  function isolateOBJValues(obj, from, to){
-    let cutText = [from, to]
-    let s = searchString(obj, cutText[0]) // start
-    let e = searchString(obj, cutText[1]) // end
-    return obj.substring(s-cutText[0].length, e-cutText[1].length)
-  }
-  function populateObjectVectors(x, y, z, from, to, type, obj){
-    let objIsolate = isolateOBJValues(obj, from, to)
-    var tempString = ""
-    for(i = 0; i < objIsolate.length; i++){
-      if(objIsolate.charAt(i) == 'v'){ // Too lazy to refactor this, don't need to count verts here
-        //objVertCount += 1
-      }else{
-        if(objIsolate.charAt(i) != ' ' && objIsolate.charAt(i) != 'n'){
-          tempString += objIsolate.charAt(i)
-        }else{
-          tempString = ""
-        }
-      }
-      if(type == "normals"){
-        cyclePushXYZConfig(x, y, z, tempString, showVertsAsFloatingPoint, type, 7)
-      }
-      if(type == "vertex"){
-        cyclePushXYZConfig(x, y, z, tempString, showVertsAsFloatingPoint, type, 9)
-      }
-      if(type == "texture"){
-        if(tempString.length == 8){
-          cyclePushXY(x, y, tempString)
-        }
-      }
-    }
-  }
-  function cyclePushXYZConfig(x, y, z, string, convertToFloatingPoint, type, maxLen){
-    if(string.charAt(0) == '-' && string.length == maxLen){
-      cyclePushXYZ(x, y, z, string, convertToFloatingPoint, type)
-    }else if(string.charAt(0) != '-' && string.length == maxLen-1){
-      cyclePushXYZ(x, y, z, string, convertToFloatingPoint, type)
-    }
-  }
-  function cyclePushXYZ(x, y, z, string, convertToFloatingPoint, type){
-    if(type == "normals"){
-      string =
-      ((convertToFloatingPoint == true) ?
-      valueToFloatingPointHex((string*1).toPrecision(7)) :
-      (string*1).toPrecision(7));
-    }
-    if(type == "vertex"){
-      string =
-      ((convertToFloatingPoint == true) ?
-      valueToFloatingPointHex((string*20).toPrecision(7)) :
-      (string*20).toPrecision(7));
-    }
-    switch(objDimension){
-      case 0:
-        x.push(string)
-        objDimension += 1
-      break;
-      case 1:
-        y.push(string)
-        objDimension += 1
-      break;
-      case 2:
-        z.push(string)
-        objDimension = 0
-      break;
-    }
-  }
-  function cyclePushXY(x, y, string){
-    switch(objDimension){
-      case 0:
-        string = parseInt(string*256)
-        x.push(string)
-        objDimension += 1
-      break;
-      case 1:
-        string = parseInt((string*-1*256)+256)
-        y.push(string)
-        objDimension = 0
-      break;
-    }
-  }
-  function valueToFloatingPointHex(string){
-    //function retrieved from:
-    //https://stackoverflow.com/questions/47164675/convert-float-to-32bit-hex-string-in-javascript/47187116#47187116
-    const getHex = i => ('00' + i.toString(16)).slice(-2)
-    var view = new DataView(new ArrayBuffer(4)), result
-    view.setFloat32(0, string)
-    result = Array
-        .apply(null, { length: 4 })
-        .map((_, i) => getHex(view.getUint8(i)))
-        .join('')
-    return "0x" + result;
-  } //End of OBJ section
-////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
+  /////NJAT
   function patchNJAT(njat){
-  //details:
-    //Colours don't work very well for now but, njatColours for now and can crash
-    //your model, values are between 0 - 255
-
-    //Object position and rotations is working, just haven't added fields for it yet
-    //These may be useful in the future, since normals are processed before it's edited,
-    //meaning it's possible to move the object but retain it's OBJ normal localtions.
-
     let njatAfterVerts = njat
-    let njatColours = [255, 255, 255, 255]
     let startVertsAt = njat.search("Cadd_vert_and_normC")
     let endVertsAt = njat.search("Cend_vert_and_normC")
     //Start patch, order of patching is significant
     njat = njat.slice(0, startVertsAt)
-    njat = customDiffuseColor(njat, njatColours)
+    njat = customDiffuseColor(njat, [255, 255, 255, 255])
     njat = addOBJVertsToNJAT(njat)
     njatAfterVerts = njatAfterVerts = njatAfterVerts.slice(endVertsAt)
     njatAfterVerts = njatAfterVerts.replace("Cend_vert_and_normC", "")
@@ -573,14 +683,14 @@ function main(){
     njat = njat.replace("Ctexture_commentC", texture_comment)
     njat = njat.replace("Cnja_modeC", njaMode)
     //Below line seems arbitrary, but every NJA I've seen does these calcs (Cvert_count_multiC)
-    njat = (normals ? njat.replace("Cvert_count_multiC", (objVertCount*6)+1) : njat.replace("Cvert_count_multiC", (objVertCount*3)+1))
+    njat = njat.replace("Cvert_count_multiC", vlistChunk)
     njat = njat.replace("Cvert_count_maxC", objVertCount)
     njat = njat.replace("Ccustom_commentC", custom_comment)
     njat = njat.replace("Cnja_patcher_versionC", version)
     njat = addTriangleStripsToNJAT(njat)
     flatShading = (njat.search("undefined") == -1 ? false : true)
     if(!quadFaces){
-      document.getElementById("output").innerHTML = njat
+      document.getElementById("output").innerHTML += njat
     }else if(flatShading){
       document.getElementById("output").innerHTML = "Error: Model most likely flat shaded, please 'smooth shade' your OBJ before exporting!"
     }
@@ -599,7 +709,6 @@ function main(){
     //console.log(`verts total: ${objVertCount}`)
     //console.log(`verts: X-${objX.length}, Y-${objY.length}, Z-${objZ.length}`)
     //console.log(`norms: X-${objXN.length}, Y-${objYN.length}, Z-${objZN.length}`)
-    let normalHack = ["0xbf800000","0x00000000","0x3f800000"]
     for(i = 0; i < objVertCount; i++){
       if(i == 0){
         njat = njat + (njaMode == "CnkV_VN" ?
@@ -645,9 +754,9 @@ function main(){
     if(texture){
       //Strip memory implementation is kind of arbitrary, it's hard to tell exactly what the value is based on
       //but it should increase exponentially based on how many strips and UVs there are.
-      njat = njat.replace("Cstrip_memoryC", njaOptimizedTriList.length+(parseInt((objVertCount*3)*6.2)))
+      njat = njat.replace("Cstrip_memoryC", bandwidth)
     }else{
-      njat = njat.replace("Cstrip_memoryC", njaOptimizedTriList.length+(objVertCount*3))
+      njat = njat.replace("Cstrip_memoryC", bandwidth)
     }
     njat = njat.replace("Cstrip_amountC", njaOptimizedTriList.length)
     njat = njat.replace("Ctriangle_stripC", function(){
@@ -662,7 +771,7 @@ function main(){
               stripFormat+= `\n\t` + njaOptimizedTriList[strip][vert] + `, Uvn( ${objXT[countForTex]} , ${objYT[countForTex]} ),\n`
             }else if(vert == 1){
               stripFormat+=`\t`+njaOptimizedTriList[strip][vert] + `, Uvn( ${objXT[countForTex]} , ${objYT[countForTex]} ),\n`
-            }else if(strip == njaOptimizedTriList.length-1){
+            }else if(strip == njaOptimizedTriList.length){
               stripFormat+=`\t`+njaOptimizedTriList[strip][vert] + `, Uvn( ${objXT[countForTex]} , ${objYT[countForTex]} ),`
             }else{
               stripFormat+=`\t`+njaOptimizedTriList[strip][vert] + `, Uvn( ${objXT[countForTex]} , ${objYT[countForTex]} ),\n`
@@ -704,5 +813,58 @@ function main(){
       return stripEntry
     });
     return njat
+  }
+
+  this.objPath = objPath
+  return{
+    loadOBJ : function(objFile){
+      loadOBJ(objPath, objFile);
+    },
+
+    details : function(passName, passHeaderComment) {
+      name = passName
+      custom_comment = passHeaderComment
+      texture_comment = "dirbox"//passPermanentComment
+    },
+
+    hideHex : () => {
+      showVertsAsFloatingPoint = false
+      document.getElementById("output").innerHTML = "Warning: hideHex() does not generate usable NJA or NJ files \n\n"
+    },
+
+    optimizeStrips : () => {
+      optimizeTriangleStripDetermination = true
+    },
+
+    unloadNormals : () => {
+      unloadNormals = true
+    },
+
+    unloadTextures : () => {
+      unloadTexture = true
+    },
+
+    forceTextureCoords : (x, y) => {
+      forceTextureCoords = true
+      forcedTextures = []
+      forcedTextures.push(x)
+      forcedTextures.push(y)
+    },
+
+    objScale : (scalar) => {
+      objDefaultFaceScale = scalar
+    },
+
+    forceNormals : (x, y, z) => {
+      forceNormals = true
+      forcedNormals = []
+      forcedNormals.push(x)
+      forcedNormals.push(y)
+      forcedNormals.push(z)
+    },
+
+    flashNJ : () => {
+      flashNJ = true
+    }
   }
 }
