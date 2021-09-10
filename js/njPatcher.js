@@ -27,7 +27,7 @@ function njPatch(bandwidthVals, textureComment, colours, njaFinalData, njaVlistI
   if(njtlEnd){
     nj = generateNJCM(nj, bandwidth, bandwidthOffset, njcmDataSize, colours, vertVectorsXYZ, normalVectorsXYZ, textureCoordsVectorsXY, triangleStrips, njaVlistInfo)
     //Log hex
-    console.log("\n" + nj.toUpperCase())
+    //console.log("\n" + nj.toUpperCase())
     document.getElementById("output").innerHTML += nj
   }
 }
