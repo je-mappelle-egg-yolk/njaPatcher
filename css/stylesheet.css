@@ -8,18 +8,13 @@
   width: 100%;
   height: 64px;
   padding: 4px;
-  margin: 16px;
+  margin: 16px 40px;
   text-align: center;
 }
 
 .option1, .option2{
   flex:1;
   background-color: #DDD;
-}
-
-.option3{
-  flex:2;
-  background-color: #BBB;
 }
 
 .option1:hover, .option2:hover{
@@ -71,7 +66,7 @@ pre{
 }
 
 .obj--drop-zone{
-  background-color: #444;
+  background-color: #777;
   position: fixed;
   top: 96px; right: 0; bottom: 0; left: 0;
   margin: 0;

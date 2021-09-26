@@ -1,19 +1,21 @@
-function njPatch(bandwidthVals, textureComment, colours, njaFinalData, njaVlistInfo){
+export function njPatch(bandwidthVals, textureComment, colours, njaFinalData, njaVlistInfo){
   let nj = ""
   let njtlEnd = false
-
+  
   let vertVectorsXYZ = njaFinalData[0]
   let normalVectorsXYZ = njaFinalData[1]
   let textureCoordsVectorsXY = njaFinalData[2]
   let triangleStrips = njaFinalData[3]
+
+  //console.log(njaFinalData[2]);
 
   let bandwidth = bandwidthVals[0]
   let bandwidthOffset = bandwidthVals[1]
 
   let njcmDataSize = 78 + 10 + 24 //Summation of static byte blocks
   njcmDataSize+= (bandwidth+1)*2
-  for(vector in vertVectorsXYZ){
-    for(vert in vertVectorsXYZ[vector]){
+  for(let vector in vertVectorsXYZ){
+    for(let vert in vertVectorsXYZ[vector]){
       njcmDataSize += 8 // should be + 4 for no normals
     }
   }
@@ -26,17 +28,13 @@ function njPatch(bandwidthVals, textureComment, colours, njaFinalData, njaVlistI
   }
   if(njtlEnd){
     nj = generateNJCM(nj, bandwidth, bandwidthOffset, njcmDataSize, colours, vertVectorsXYZ, normalVectorsXYZ, textureCoordsVectorsXY, triangleStrips, njaVlistInfo)
-    //Log hex
-    //console.log("\n" + nj.toUpperCase())
-    document.getElementById("output").innerHTML += nj
+    document.getElementById("output").innerHTML += nj.toUpperCase()
   }
 }
 
 function generateNJTL(textureComment, njtlEnd){
-  ///This is for an NJTL with the same
-  //texture settings that njaPatcher provides, e.g., 1 tex
-  //The @ (hex 40) is tex name offset for NJTL, so
-  //that will have to changed later
+  //Since NJTL is replaceable for a single texture I haven't bothered to write it yet
+  //will implement it when multi texture support is added
   /*
   while(!njtlEnd){
     nj = "NJTL@" //23 ..
@@ -57,14 +55,14 @@ function generateNJTL(textureComment, njtlEnd){
     njtlEnd = true;
   }
   */
-  nj = "4E 4A 54 4C 1C 00 00 00 08 00 00 00 01 00 00 00 14 00 00 00 00 00 00 00 00 00 00 00 64 69 72 62 6F 78 00 00 50 4F 46 30 04 00 00 00 40 42 00 00 "
+  let nj = "4E 4A 54 4C 1C 00 00 00 08 00 00 00 01 00 00 00 14 00 00 00 00 00 00 00 00 00 00 00 64 69 72 62 6F 78 00 00 50 4F 46 30 04 00 00 00 40 42 00 00 "
   njtlEnd = true
   return [nj, njtlEnd]
 }
 function generateNJCM(nj, bandwidth, bandwidthOffset, njcmDataSize, colours, vvXYZ, nvXYZ, tcvXY, ts, njaVli){
-  //There is a tonne of refactoring to be done here, mostly at checkes for < 255 : But it can wait for a future update
+  //There is a tonne of refactoring to be done here, mostly at checks for < 255 : But it can wait for a future update
   let tsStripLengths = []
-  for(s in ts){
+  for(let s in ts){
     tsStripLengths.push(ts[s].length)
   }
   let njcm = ""
@@ -78,9 +76,9 @@ function generateNJCM(nj, bandwidth, bandwidthOffset, njcmDataSize, colours, vvX
   njcm += "00 00 80 3F 00 00 80 3F 00 00 80 3F " //Temp scale, not sure if will be supported, can change scale in more stable ways
   njcm = padWithDec0(njcm, 8)
   njcm += "17 25 06 00 " //static var
-  for(colourType in colours){
-    revColour = colours[colourType].reverse()
-    for(colour in colours[colourType]){
+  for(let colourType in colours){
+    let revColour = colours[colourType].reverse()
+    for(let colour in colours[colourType]){
       njcm += padHex16(revColour[colour], false)
     }
   }
@@ -96,9 +94,9 @@ function generateNJCM(nj, bandwidth, bandwidthOffset, njcmDataSize, colours, vvX
     njcm += convertTo2Bytes(tsStripLengths.length)
   }
   let countForTex = 0
-  for(s in ts){
+  for(let s in ts){
     njcm+= padHex16(ts[s].length)
-    for(v in ts[s]){
+    for(let v in ts[s]){
       if(ts[s][v] < 256){
         njcm+= padHex16(ts[s][v])
       }else{
@@ -126,7 +124,7 @@ function generateNJCM(nj, bandwidth, bandwidthOffset, njcmDataSize, colours, vvX
     njcm += "FF 00 00 00 "
   }
   njcm += "29 00 " //Seems like another static var, "29" referred to above
-  for(info in njaVli){
+  for(let info in njaVli){
     if(info == 0){
       if(njaVli[info]<255){
         njcm+=padHex16(njaVli[info])+"00 00 "
@@ -142,11 +140,11 @@ function generateNJCM(nj, bandwidth, bandwidthOffset, njcmDataSize, colours, vvX
     }
   }
   countForTex = 0
-  for(i = 0; i < njaVli[1]; i++){
-    for(vector in vvXYZ){
+  for(let i = 0; i < njaVli[1]; i++){
+    for(let vector in vvXYZ){
       njcm += fpc754conv2Hex16(vvXYZ[vector][countForTex])
     }
-    for(vector in nvXYZ){
+    for(let vector in nvXYZ){
       njcm += fpc754conv2Hex16(nvXYZ[vector][countForTex])
     }
     countForTex+=1
@@ -178,7 +176,7 @@ function appendNJM(nj){
 function modelBandwidthOut(triStripBandwidth ,vlistBandwidth){
   let unknown_var_name0 = 0//128
   let unknown_var_name1 = 0//64 ^ [] when CnkV_VN(0x0, 43)
-  for(i = 0; i < vlistBandwidth; i++){
+  for(let i = 0; i < vlistBandwidth; i++){
     if(i == 43){
       unknown_var_name0 = 128
       unknown_var_name1 = 64
@@ -186,7 +184,7 @@ function modelBandwidthOut(triStripBandwidth ,vlistBandwidth){
     }
   }
   vlistBandwidth-=43
-  for(i = 0; i < vlistBandwidth; i++){
+  for(let i = 0; i < vlistBandwidth; i++){
     if(unknown_var_name1 < 255){
       unknown_var_name1 += 1
     }else{
@@ -194,7 +192,7 @@ function modelBandwidthOut(triStripBandwidth ,vlistBandwidth){
       unknown_var_name0 += 1
     }
   }
-  for(i = 0; i < triStripBandwidth/2; i++){
+  for(let i = 0; i < triStripBandwidth/2; i++){
     if(unknown_var_name1 < 255){
       unknown_var_name1 += 1
     }else{
@@ -233,7 +231,7 @@ function fpc754conv2Hex16(fpc754val){
   byteBlock.push(tempString.slice(2,4))
   byteBlock.push(tempString.slice(0,2))
   tempString = ""
-  for(byte in byteBlock){
+  for(let byte in byteBlock){
     tempString += byteBlock[byte] + " "
   }
   return tempString
@@ -259,7 +257,7 @@ function padHex16(string, expand = true){
 //Convert string literal to bytes
 function convertToHex(string){
   let hexString = ""
-  for(char in string){
+  for(let char in string){
     hexString += string.charCodeAt(char).toString(16).toUpperCase() + " "
   }
   return hexString
@@ -267,7 +265,7 @@ function convertToHex(string){
 //Pad with 00's for amount
 function padWithDec0(origString, amount){
   let string = ""
-  for(i = 0; i < amount; i++){
+  for(let i = 0; i < amount; i++){
     string += "00" + " "
   }
   return origString + string
@@ -275,7 +273,7 @@ function padWithDec0(origString, amount){
 //Add string literal into bin
 function addTextureComment(string, textureComment){
   let tempString = ""
-  for(char in textureComment){
+  for(let char in textureComment){
     tempString += textureComment[char]
   }
   tempString = convertToHex(tempString)

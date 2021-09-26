@@ -1,0 +1,696 @@
+Code Hook for .XJ file reading and conversion...
+Scanning L:\njaPatcher\js-obj2nja\z_exclude\HUcast deconstruct\plCbdy00.nj
+24732 bytes read.
+0x00000000 : NJCM
+     Node Data @ 0x00000008
+          Eval Flags   = 0x00000006
+          Model Data   = 0x00001030
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00001048
+          Sibling Node = 0x00000000
+     Model Data @ 0x00001038
+                    Tag = 0x00000000
+          Vertex Offset = 0x00000034
+               Template = 0xBC1EB639
+            Mesh Offset = 0x41228F12
+               Template = 0x3E3651B1
+             ??? Offset = 0x00000000
+               Template = 0x0000000E
+                 Center =    0.000000,  -0.001648,  14.310210
+                 Radius = -2.5E-05
+     Node Data @ 0x00001050
+          Eval Flags   = 0x0000000E
+          Model Data   = 0x00000000
+          Translate    =   -0.001648,  14.310210,  -0.000025
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x0000107C
+          Sibling Node = 0x00000000
+     Node Data @ 0x00001084
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00001448
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000, 268.879400
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00001460
+          Sibling Node = 0x00000000
+     Model Data @ 0x00001450
+                    Tag = 0x000010B0
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x0000000C
+                 Center =    0.000000,   1.225551,   0.906481
+                 Radius = -0.262407
+     Node Data @ 0x00001468
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    1.225551,   0.906481,  -0.262407
+          Rotation     =  314.439700,  90.000000,  50.141600
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00001494
+          Sibling Node = 0x00001D70
+     Node Data @ 0x0000149C
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00001730
+          Translate    =    0.000000,   0.000003,   0.000000
+          Rotation     =    0.000000,   0.000000, 265.880100
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00001748
+          Sibling Node = 0x00001D3C
+     Model Data @ 0x00001738
+                    Tag = 0x000014C8
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x00000004
+                 Center =    0.000000,   5.047662,   0.000000
+                 Radius = 0
+     Node Data @ 0x00001750
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00001A74
+          Translate    =    5.047662,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   8.915405
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00001A8C
+          Sibling Node = 0x00000000
+     Model Data @ 0x00001A7C
+                    Tag = 0x0000177C
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x0000001E
+                 Center =    0.000000,   7.054980,   0.000000
+                 Radius = 0
+     Node Data @ 0x00001A94
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    7.054980,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00001AC0
+     Node Data @ 0x00001AC8
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    6.789901,  -0.134976,   0.007782
+          Rotation     =    4.548340,   0.000000,  85.182500
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00001AF4
+          Sibling Node = 0x00001D08
+     Node Data @ 0x00001AFC
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00001CBC
+          Translate    =    0.000000,   0.000001,   0.000000
+          Rotation     =    0.000000,   0.000000, 195.809300
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00001CD4
+          Sibling Node = 0x00000000
+     Model Data @ 0x00001CC4
+                    Tag = 0x00001B28
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x0000001E
+                 Center =    0.000000,   3.047536,   0.000000
+                 Radius = 0
+     Node Data @ 0x00001CDC
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    3.047536,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00001D10
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    3.344144,   0.621583,   1.697362
+          Rotation     =   90.000000, 274.586800, 355.210000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00001D44
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    0.000000,   0.000002,   2.429610
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00001D78
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    1.259345,  -0.817719,  -0.262407
+          Rotation     =  314.439700,  90.000000,  41.061400
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00001DA4
+          Sibling Node = 0x00002680
+     Node Data @ 0x00001DAC
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00002040
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000, 265.918600
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00002058
+          Sibling Node = 0x0000264C
+     Model Data @ 0x00002048
+                    Tag = 0x00001DD8
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x00000004
+                 Center =    0.000000,   5.092903,   0.000000
+                 Radius = 0
+     Node Data @ 0x00002060
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00002384
+          Translate    =    5.092903,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   8.876953
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x0000239C
+          Sibling Node = 0x00000000
+     Model Data @ 0x0000238C
+                    Tag = 0x0000208C
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x0000001E
+                 Center =    0.000000,   7.054979,   0.000000
+                 Radius = 0
+     Node Data @ 0x000023A4
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    7.054979,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x000023D0
+     Node Data @ 0x000023D8
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    6.734079,  -0.130383,  -0.016694
+          Rotation     =    0.653687,   0.000000,  85.204470
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00002404
+          Sibling Node = 0x00002618
+     Node Data @ 0x0000240C
+          Eval Flags   = 0x00000004
+          Model Data   = 0x000025CC
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000, 195.809300
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x000025E4
+          Sibling Node = 0x00000000
+     Model Data @ 0x000025D4
+                    Tag = 0x00002438
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x0000001E
+                 Center =    0.000000,   3.047535,   0.000000
+                 Radius = 0
+     Node Data @ 0x000025EC
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    3.047535,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00002620
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    3.299298,   0.625070,  -1.744851
+          Rotation     =   89.994510, 265.501100, 355.210000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00002654
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    0.000000,   0.000000,   2.429611
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00002688
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    2.062879,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x000026B4
+     Node Data @ 0x000026BC
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    1.342470,   0.028316,  -1.428641
+          Rotation     =    0.000000,   0.000000,  91.120610
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x000026E8
+     Node Data @ 0x000026F0
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =   10.080980,   0.199592,   0.000000
+          Rotation     =    0.000000,   0.000000,  91.120610
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x0000271C
+     Node Data @ 0x00002724
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =   -0.415511,  -0.000832,   0.000000
+          Rotation     =    0.000000,   0.000000,  91.120610
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00002750
+          Sibling Node = 0x00000000
+     Node Data @ 0x00002758
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00003404
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,  89.571530
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x0000341C
+          Sibling Node = 0x00000000
+     Model Data @ 0x0000340C
+                    Tag = 0x00002784
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x00000004
+                 Center =    0.000000,   3.365113,  -2.856289
+                 Radius = -0.517184
+     Node Data @ 0x00003424
+          Eval Flags   = 0x00000004
+          Model Data   = 0x000038A4
+          Translate    =    3.365113,  -2.856289,  -0.517184
+          Rotation     =    0.000000,   0.000000, 270.428500
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x000038BC
+          Sibling Node = 0x000047F8
+     Model Data @ 0x000038AC
+                    Tag = 0x00000000
+          Vertex Offset = 0x00003450
+               Template = 0x3E839FDC
+            Mesh Offset = 0xC0377E2C
+               Template = 0xBE36E504
+             ??? Offset = 0x00000000
+               Template = 0x0000000D
+                 Center =    0.000000,   0.000000,   0.000000
+                 Radius = 0
+     Node Data @ 0x000038C4
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,  90.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x000038F0
+          Sibling Node = 0x00000000
+     Node Data @ 0x000038F8
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00003E6C
+          Translate    =    0.000000,   0.000000,  -0.000001
+          Rotation     =    0.000000,   0.000000, 276.981800
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00003E84
+          Sibling Node = 0x000047C4
+     Model Data @ 0x00003E74
+                    Tag = 0x00003924
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x00000004
+                 Center =    0.000000,   3.037760,   0.000000
+                 Radius = 0
+     Node Data @ 0x00003E8C
+          Eval Flags   = 0x00000004
+          Model Data   = 0x000040BC
+          Translate    =    3.037760,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000, 339.603900
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x000040D4
+          Sibling Node = 0x00004790
+     Model Data @ 0x000040C4
+                    Tag = 0x00003EBC
+          Vertex Offset = 0x00003EB8
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x0000001E
+                 Center =    0.000000,   3.176687,   0.000000
+                 Radius = 0
+     Node Data @ 0x000040DC
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    3.176687,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00004108
+     Node Data @ 0x00004110
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    3.392407,  -0.085704,   0.018585
+          Rotation     =   51.707150, 270.000000,  51.707150
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x0000413C
+          Sibling Node = 0x0000475C
+     Node Data @ 0x00004144
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    0.000000,  -0.000002,   0.000000
+          Rotation     =    0.000000,   0.000000, 267.714800
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00004170
+          Sibling Node = 0x00000000
+     Node Data @ 0x00004178
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    1.696801,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x000041A4
+     Node Data @ 0x000041AC
+          Eval Flags   = 0x00000014
+          Model Data   = 0x00004710
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,  92.285160
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00004728
+     Model Data @ 0x00004718
+                    Tag = 0x0000441C
+          Vertex Offset = 0x000041D8
+               Template = 0xBDECA687
+            Mesh Offset = 0xBF2F1151
+               Template = 0x3E840874
+             ??? Offset = 0x3FAE9436
+               Template = 0x0000001C
+                 Center =    0.000000,   0.937455,  -0.236975
+                 Radius = 0.149686
+     Node Data @ 0x00004730
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    0.937455,  -0.236975,   0.149686
+          Rotation     =    0.000000,   0.000000,  92.285160
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00004764
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    1.770121,   0.041619,   1.570089
+          Rotation     =   51.707150, 270.000000,  51.707150
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00004798
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    1.168443,   0.162626,   2.182818
+          Rotation     =   41.506350, 270.000000,  41.506350
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x000047CC
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    0.000000,  -0.000001,   2.429611
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00004800
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00004C2C
+          Translate    =    3.322468,   2.857548,  -0.519017
+          Rotation     =    0.000000,   0.000000, 270.428500
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00004C44
+          Sibling Node = 0x00005B68
+     Model Data @ 0x00004C34
+                    Tag = 0x00000000
+          Vertex Offset = 0x0000482C
+               Template = 0xBEB3D124
+            Mesh Offset = 0xC0377E02
+               Template = 0xBE350508
+             ??? Offset = 0x00000000
+               Template = 0x0000000D
+                 Center =    0.000000,   0.000000,   0.000000
+                 Radius = 0
+     Node Data @ 0x00004C4C
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,  90.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00004C78
+          Sibling Node = 0x00000000
+     Node Data @ 0x00004C80
+          Eval Flags   = 0x00000004
+          Model Data   = 0x000051F4
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000, 277.294900
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x0000520C
+          Sibling Node = 0x00005B34
+     Model Data @ 0x000051FC
+                    Tag = 0x00004CAC
+          Vertex Offset = 0x00000000
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x00000004
+                 Center =    0.000000,   2.918924,   0.000000
+                 Radius = 0
+     Node Data @ 0x00005214
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00005444
+          Translate    =    2.918924,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000, 338.768900
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x0000545C
+          Sibling Node = 0x00005B00
+     Model Data @ 0x0000544C
+                    Tag = 0x00005244
+          Vertex Offset = 0x00005240
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x0000001E
+                 Center =    0.000000,   3.407154,  -0.000001
+                 Radius = 0
+     Node Data @ 0x00005464
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    3.407154,  -0.000001,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00005490
+     Node Data @ 0x00005498
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    3.643255,  -0.067201,  -0.086306
+          Rotation     =   51.965330, 270.000000,  51.965330
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x000054C4
+          Sibling Node = 0x00005ACC
+     Node Data @ 0x000054CC
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    0.000001,  -0.000003,   0.000000
+          Rotation     =    0.000000,   0.000000, 267.714800
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x000054F8
+          Sibling Node = 0x00000000
+     Node Data @ 0x00005500
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    2.225737,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x0000552C
+     Node Data @ 0x00005534
+          Eval Flags   = 0x00000014
+          Model Data   = 0x00005A80
+          Translate    =    0.000000,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,  92.285160
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00005A98
+     Model Data @ 0x00005A88
+                    Tag = 0x0000578C
+          Vertex Offset = 0x00005560
+               Template = 0x3DECA687
+            Mesh Offset = 0xBF2F1151
+               Template = 0x3E84093E
+             ??? Offset = 0x3FAE941D
+               Template = 0x0000001C
+                 Center =    0.000000,   0.983081,   0.301793
+                 Radius = 0.149898
+     Node Data @ 0x00005AA0
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    0.983081,   0.301793,   0.149898
+          Rotation     =    0.000000,   0.000000,  92.285160
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00005AD4
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    1.973602,   0.067337,  -1.553780
+          Rotation     =   51.965330, 270.000000,  51.965330
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00005B08
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    1.093503,   0.163694,  -2.168684
+          Rotation     =   41.352540, 270.000000,  41.352540
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00005B3C
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    0.000000,   0.000000,   2.429612
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00005B70
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    2.258023,   0.022153,   0.134844
+          Rotation     =   44.785770,  90.000000, 315.214200
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00005B9C
+          Sibling Node = 0x00005C04
+     Node Data @ 0x00005BA4
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    0.000000,  -0.000004,   0.000000
+          Rotation     =    0.000000,   0.000000, 180.884400
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00005BD0
+          Sibling Node = 0x00000000
+     Node Data @ 0x00005BD8
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    1.299136,  -0.000001,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00005C0C
+          Eval Flags   = 0x0000000C
+          Model Data   = 0x00000000
+          Translate    =    4.966684,   0.005376,  -0.127735
+          Rotation     =    0.000000,   0.000000, 270.428500
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00005C38
+          Sibling Node = 0x00005F40
+     Node Data @ 0x00005C40
+          Eval Flags   = 0x00000004
+          Model Data   = 0x00005E8C
+          Translate    =    0.000000,  -0.000006,   0.000000
+          Rotation     =    0.000000,   0.000000,  90.686650
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00005EA4
+          Sibling Node = 0x00000000
+     Model Data @ 0x00005E94
+                    Tag = 0x00005C70
+          Vertex Offset = 0x00005C6C
+               Template = 0x00000000
+            Mesh Offset = 0x00000000
+               Template = 0x00000000
+             ??? Offset = 0x00000000
+               Template = 0x0000001E
+                 Center =    0.000000,   2.630167,   0.000000
+                 Radius = 0
+     Node Data @ 0x00005EAC
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    2.630167,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00005ED8
+     Node Data @ 0x00005EE0
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =   -0.000001,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000, 269.313400
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00005F0C
+     Node Data @ 0x00005F14
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =   -0.000001,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000, 269.313400
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
+     Node Data @ 0x00005F48
+          Eval Flags   = 0x0000001E
+          Model Data   = 0x00000000
+          Translate    =    4.246102,   0.000000,   0.000000
+          Rotation     =    0.000000,   0.000000,   0.000000
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00005F74
+     Node Data @ 0x00005F7C
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    3.406738,   0.030722,  -1.685063
+          Rotation     =    0.000000,   0.000000, 270.428500
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00005FA8
+     Node Data @ 0x00005FB0
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    4.486895,  -2.440716,  -2.324957
+          Rotation     =    0.000000,   0.000000, 270.428500
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00005FDC
+     Node Data @ 0x00005FE4
+          Eval Flags   = 0x0000001C
+          Model Data   = 0x00000000
+          Translate    =    4.449914,   2.517999,  -2.324957
+          Rotation     =    0.000000,   0.000000, 270.428500
+          Scale        =    1.000000,   1.000000,   1.000000
+          Child Node   = 0x00000000
+          Sibling Node = 0x00000000
