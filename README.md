@@ -18,7 +18,7 @@ There are a couple of objects to use with njaPatcher, the first one being "njaPa
 Lastly, njaPatcher is not developed with privatized variables at the moment, so please refer to this document for function names and usage.
 
 ## Included files
-The included HTML/CSS with the added "main.js" script is setup to export an NJA with a node based armature structure.
+The included HTML/CSS with the added "main.js" script is setup to export an NJA with a node based armature structure, the 'main.js' script also has commented out examples for different usage of the package.
 
 The repo currently contains 4 test OBJ files/folders:
 

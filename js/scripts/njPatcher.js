@@ -1,13 +1,11 @@
 export function njPatch(bandwidthVals, textureComment, colours, njaFinalData, njaVlistInfo){
   let nj = ""
   let njtlEnd = false
-  
+
   let vertVectorsXYZ = njaFinalData[0]
   let normalVectorsXYZ = njaFinalData[1]
   let textureCoordsVectorsXY = njaFinalData[2]
   let triangleStrips = njaFinalData[3]
-
-  //console.log(njaFinalData[2]);
 
   let bandwidth = bandwidthVals[0]
   let bandwidthOffset = bandwidthVals[1]

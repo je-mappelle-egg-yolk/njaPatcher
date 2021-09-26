@@ -4,13 +4,6 @@ import * as njaMemory from './scripts/njaMemory.js';
 import * as njaArmature from './scripts/njaArmature.js'
 import * as triangleStripper from './scripts/triangleStripper.js'
 import * as njPatcher from './scripts/njPatcher.js'
-//System settings
-
-
-
-//let objFilePath = "/obj/temp/PSOBB Dreaming Dimension/BML/node_test/";
-
-//njaPatcher(objFilePath)
 
 export function njaPatcher(objFilePath){
   let flashNJ = false
@@ -71,9 +64,9 @@ export function njaPatcher(objFilePath){
       ,  modelTriangleStripsList[parsedData][0], objParsedDataList[parsedData][2][0]))
     }
     if(flashNJ){
-      //if(unloadNormals || unloadTexture || objXN[0] == undefined){
-      //  document.getElementById("output").innerHTML += "Error: unloadNormals() and unloadTextures() only supported for NJA output."
-      //}
+      if(objParser.getUnloadStatus("normals") || objParser.getUnloadStatus("texture")){
+        document.getElementById("output").innerHTML += "Error: unloadNormals() and unloadTextures() only supported for NJA output."
+      }
       let vlistInfo = []
       vlistInfo.push(modelMemoryInfoList[0][3])
       vlistInfo.push(modelMemoryInfoList[0][4])

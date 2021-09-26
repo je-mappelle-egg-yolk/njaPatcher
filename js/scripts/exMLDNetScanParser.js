@@ -38,8 +38,6 @@ function extractNodePositionFromScan(scan, nodeCount){
   return nodePositionsMod
 }
 
-
-
 function parseNodeObjects(scan, nodeCount, nodePositions){
   let node = ""
   let parsedNodes = []
@@ -113,7 +111,6 @@ function cleanNodeObject(nodeObjectData, nodePositions, nodeID){
   let tempNodeObjectData = []
   let childData = ""
   let siblingData = ""
-  //console.log(nodeObjectData);
   cleanedData.push(nodeObjectData[0])
   for(let value in nodeObjectData){
     if(value == 1){
@@ -140,7 +137,6 @@ function cleanNodeObject(nodeObjectData, nodePositions, nodeID){
     if(nodeObjectData[1] != "0x00000000"){
       if(value == 7){
         tempNodeObjectData.push(nodeObjectData[value])
-        //cleanedData.push(convertVectorStringToAL(tempNodeObjectData, false))
       }
       if(value == 8){
         cleanedData.push(nodeObjectData[value])
@@ -154,30 +150,26 @@ function convertVectorStringToAL(strings, fromNode){
   let dimensionArr = []
   let tempValue = ""
   let tempNodeObjectDataValue = []
-  //console.log(strings);
   for(let value in strings){
     for(let i = 0; i < strings[value].length; i++){
       if(strings[value].charAt(i) == ","){
-        tempNodeObjectDataValue.push(tempValue)//Add F
+        tempNodeObjectDataValue.push(tempValue)
         tempValue = ""
       }else{
         tempValue += strings[value].charAt(i)
       }
       if(i == strings[value].length-1){
-        tempNodeObjectDataValue.push(tempValue)//Add F
+        tempNodeObjectDataValue.push(tempValue)
       }
     }
     tempValue = ""
   }
-  //console.log(tempNodeObjectDataValue);
   let ta = tempNodeObjectDataValue
   if(fromNode){
-    //console.log(ta[0]);
     dimensionArr = [ta[0], ta[1], ta[2], ta[3], ta[4], ta[5], ta[6], ta[7], ta[8]]
   }else{
     dimensionArr = [ta[0], ta[1], ta[2]]
   }
-  //console.log(dimensionArr);
   return dimensionArr
 }
 

@@ -3,13 +3,12 @@ import * as exMLDNetObjBinder from './bindObjectPropertiesToNJA.js'
 //ExMLDNet
 export let generateNJAFromExMLDNetTemplate;
 let usingCustomArmature = false
-let exMLDTemplatePath = "/exmldnet_scans/" //`/hucast/hucast morph targets/"
+let exMLDTemplatePath = "/exmldnet_scans/"
 let exMLDTemplateFile = "hucastScan.txt"
-                        //file33, file39, file45, file51, file57, file63, file69
+
 //NJA
 let njaMode = "CnkV_VN"
 let njat = "";
-let version = "V0.20a"
 let name = "NODE_DEMO"
 let textureName = name + "_tex"
 let custom_comment = "Project comment: Prehistoric HUcast"
@@ -232,8 +231,6 @@ function generateVLIST(rootNode, njat, nodeName, hasNormals, modelData, memoryIn
       normalEntry.push([xn, yn, zn])
     }
   }
-  //console.log(vertEntry);
-  //console.log(normalEntry);
   for(let vert in vertEntry){
     njat+=`\n\tVERT( ${vertEntry[vert][0]}, ${vertEntry[vert][1]}, ${vertEntry[vert][2]} ),`
     if(hasNormals){

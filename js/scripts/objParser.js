@@ -20,6 +20,14 @@ let flatShading;
 let unloadNormals = false
 let unloadTexture = false
 
+export function getUnloadStatus(type){
+  if(type == "normals"){
+    return unloadNormals
+  }else if(type == "texture"){
+    return unloadTexture
+  }
+}
+
 export function unload(type){
   if(type == "normals"){
     return unloadNormals = !unloadNormals
@@ -81,7 +89,6 @@ export function parseOBJ(obj, objID){
     }
   }
 
- console.log(objTextureVector);
   objFaceInfo = parseOBJFaceInfo(obj)
   let objPositionVector = calculateOBJPositionVector(objVertVector)
 
@@ -170,7 +177,6 @@ export function cyclePushXYZ(x, y, z, string, convertToFloatingPoint, type){
       }
       string*=objDefaultNormalsScale
       string=string.toString()
-      //string = valueToFloatingPointHex(string)
     }else{
       let objRepositionVertex = parseInt(string).toPrecision(7)
       let tempString = []
@@ -191,7 +197,6 @@ export function cyclePushXYZ(x, y, z, string, convertToFloatingPoint, type){
       }
       string*=objDefaultFaceScale
       string=string.toString()
-      //string = valueToFloatingPointHex(string)
     }else{
       let objRepositionVertex = parseInt(string).toPrecision(7)
       let tempString = []
@@ -242,7 +247,6 @@ export function parseOBJFaceInfo(obj){
   //Order lists compiled into faces
   let objTriIndices = []
   let objTexIndices = []
-
   //Find face info and cut
   let cutFrom = obj.search("f ")
   let objTriangleIsolate = obj.substring(cutFrom)
@@ -344,6 +348,5 @@ export function valueToFloatingPointHex(string){
       .apply(null, { length: 4 })
       .map((_, i) => getHex(view.getUint8(i)))
       .join('')
-      //console.log(result)
   return "0x" + result;
 }

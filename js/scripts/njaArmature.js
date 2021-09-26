@@ -65,7 +65,7 @@ export function hucastArmature(){
     mirrorArmature : function(){
       this.mirror = true
     },
-    useArmature : function(){//objFilePath, objPathList, objPosList){
+    useArmature : function(){
       let objPathList = []
       let objPosList = []
       if(!this.mirror){
